@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+# I'm sure this name isn't unique, but this isn't heading to pypi, so.
+[project]
+name = "puzzle-utils"
+version = "0.1"
+authors = [
+    {name = "Lance Nathan", email = "tahnan@suberic.net"},
+]
+description = "Puzzle utilities of various sorts"
+readme = "README.md"
+
+# Note: developed in 3.12, but I don't think it currently uses anything
+# beyond the basics of Python 3
+# requires-python = ">=3.8"
+dependencies = [
+    "pytest",
+]
