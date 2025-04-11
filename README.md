@@ -34,3 +34,7 @@ While the file doesn't demonstrate this, using numbers to represent words simpli
 A lot of puzzles involve grids (often of letters, though see also the maze traversal that often appears in Advent of Code problems).  Representing a grid as a dictionary from coordinates to the letter at those coordinates (or wall/floor, etc.) allows both easy lookup of a particular spot in the grid and other retrieval functions.
 
 The heart of `puzzle_utils.grid` is the `Grid` class, a dictionary that defines additional methods for getting information like the contents of a row or column, or the neighbors of a space in the grid.  It also independently defines functions for moving in a given direction from a coordinate and for turning to a new direction.
+
+## codes
+
+`codes` contains classes to handle some common ciphers: Atbash, Caesar shifts, and Playfair.
