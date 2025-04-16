@@ -57,6 +57,27 @@ SEMAPHORE_TO_LETTER = {
     '76': 'Y', '67': 'Y', '36': 'Z', '63': 'Z',
 }
 
+# "binary" in puzzle encodings is generally straightforward to translate to
+# letters without a lookup dictionary: chr(64 + int(b, 2)) suffices.  The
+# Bacon cipher is similar to this, but because it starts with A = 0, and skips
+# J and V (or at least conflates them with I and U), it's easier to just have
+# the dict.
+#
+# "a" and "b" are traditional.  Probably also traditional is "I" and "V" rather
+# than "I" and "U", because Latin (it's amazing that Bacon deigned to include
+# monstrosities like "W"), but U is more common in English than V, so it wins.
+BACON_TO_LETTER = {
+    'aaaaa': 'A', 'aaaab': 'B', 'aaaba': 'C', 'aaabb': 'D', 'aabaa': 'E',
+    'aabab': 'F', 'aabba': 'G', 'aabbb': 'H', 'abaaa': 'I', 'abaab': 'K',
+    'ababa': 'L', 'ababb': 'M', 'abbaa': 'N', 'abbab': 'O', 'abbba': 'P',
+    'abbbb': 'Q', 'baaaa': 'R', 'baaab': 'S', 'baaba': 'T', 'baabb': 'U',
+    'babaa': 'W', 'babab': 'X', 'babba': 'Y', 'babbb': 'Z'
+}
+
+LETTER_TO_BACON = {y: x for x, y in BACON_TO_LETTER.items()}
+LETTER_TO_BACON['J'] = LETTER_TO_BACON['I']
+LETTER_TO_BACON['V'] = LETTER_TO_BACON['U']
+
 # The following is calculated from the Brown Corpus.  Probably with more
 # precision than is necessary, but that shouldn't hurt anyone.
 LETTER_FREQUENCY = {

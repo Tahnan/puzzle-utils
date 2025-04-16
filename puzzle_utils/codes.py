@@ -8,6 +8,7 @@ The main entry for each class is the `encode()` and `decode()` pair.
 from string import ascii_uppercase, ascii_lowercase
 
 from puzzle_utils import bunch, alphafy
+from puzzle_utils import data
 
 
 class Atbash:
@@ -48,6 +49,47 @@ class Caesar:
 
     def show_all(self, text):
         return [text.translate(self.translations[i]) for i in range(26)]
+
+
+class Bacon:
+    """
+    The Bacon cipher is a binary-like encoding of letters.
+    """
+    # The reason we need a Bacon class and not classes for other dictionary
+    # mappings like Braille is that Bacon ciphers usually need a function to
+    # indicate what is "a" and what is "b".
+    def __init__(self, ab_function=None):
+        # "ab_function" should be a function that returns "a" or "b", and may
+        # raise a ValueError for ill-defined inputs
+        self.ab_function = ab_function or self.default_ab
+
+    @staticmethod
+    def default_ab(letter):
+        if letter in ('a', 'b'):
+            return letter
+        raise ValueError(f'Neither a nor b: {letter}')
+
+    @classmethod
+    def as_binary(cls):
+        def bin_ab(digit):
+            if digit == '1':
+                return 'b'
+            if digit == '0':
+                return 'a'
+            raise ValueError(f'Neither 0 nor 1: {digit}')
+
+        return cls(ab_function=bin_ab)
+
+    def decode(self, ciphertext):
+        """
+        Decodes ciphertext as a Bacon cipher.  Ciphertext must be an iterable
+        of individual bits.
+        """
+        plaintext = ''
+        for bits in bunch(ciphertext, 5):
+            baconized = ''.join([self.ab_function(b) for b in bits])
+            plaintext += data.BACON_TO_LETTER.get(baconized, '?')
+        return plaintext
 
 
 class Playfair:
