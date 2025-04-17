@@ -51,6 +51,25 @@ class Caesar:
         return [text.translate(self.translations[i]) for i in range(26)]
 
 
+class _LookupCode:
+    """
+    A class not meant to be instantiated on its own, but to serve as the
+    superclass for lookup-dictionary-based codes.
+    """
+    _letter_to_code = {}
+    _code_to_letter = {}
+
+    @classmethod
+    def encode(cls, text):
+        return [cls._letter_to_code.get(ltr, '?')
+                for ltr in alphafy(text).upper()]
+
+    @classmethod
+    def decode(cls, text):
+        return [cls._letter_to_code.get(ltr, '?')
+                for ltr in alphafy(text).upper()]
+
+
 class Bacon:
     """
     The Bacon cipher is a binary-like encoding of letters.
